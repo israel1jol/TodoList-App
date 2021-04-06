@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODOS APP</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'todos/style.css' %}">
+    <link rel="stylesheet" href="{% static 'todos/bootstrap.min.css' %}">
+    <style>
+        .square{
+            width: 500px;
+            height: 300px;
+        }
+        .nav-item:hover{
+            text-decoration: none;
+        }
+        @media(max-width:800px){
+            .todo{
+                max-width:400px;
+            }
+        }
+        @
+    </style>
+</head>
+<body class='container-fluid'>
+    {% block content %}{% endblock %}
+</body>
+</html>

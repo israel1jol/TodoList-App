@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div>
+        <div class='navbar'>
+            <h2>TODOS</h2>
+            <div >
+                <a href="{% url 'todos:index' %}" class='col px-md-3 border-bottom nav-item'>MyTodo</a>
+                <a href="{% url 'todos:addTodo' %}" class='col px-md-3 nav-item'>Add Todo</a>
+                 <a href="{% url 'todos:logout' %}" class='col px-md-3 nav-item'>Log Out</a>
+            </div>
+        </div>
+
+        <div class='container-fluid'>
+            <div class='text-center m-3'>
+                <h3>My Todos</h3>
+            </div>
+            {% if items %}
+                {% for item in items %}
+                    {% if item.is_completed %}
+                        <div class='todo bg-success p-3 m-5 mx-auto' style='width:700px'>
+                            <h2>{{ item.name }}</h2>
+                            <p><em>{{ item.descr }}</em></p>
+                            <a class='btn btn-secondary' href='{% url 'todos:edit' item.id %}'>Edit</a>
+                            <a class='btn btn-info' href='{% url 'todos:delete' item.id %}'>Delete</a>
+                        </div>
+                    {% else %}
+                        <div class='todo bg-danger p-3 m-5 mx-auto' style='width:700px'>
+                            <h2>{{ item.name }}</h2>
+                            <p><em>{{ item.descr }}</em></p>
+                            <a class='btn btn-secondary' href='{% url 'todos:edit' item.id %}'>Edit</a>
+                            <a class='btn btn-info' href='{% url 'todos:delete' item.id %}'>Delete</a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                {% if is_paginated %}
+                    <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link"> Prev </a></li>
+                        {% else %}
+                            <li class='disabled page-item'><span class="page-link">Prev </span></li>
+                        {% endif %}
+                        {% for i in page_obj.paginator.page_range %}
+                            {% if page_obj.number == i %}
+                                <li class='disabled page-item'><span class="page-link">{{ i }}</span></li>
+                            {% else %}
+                                <li><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if page_obj.has_next %}
+                            <li class="page-item"><a href="?page={{ page_obj.next_page_number }}" class="page-link">Next </a></li>
+                        {% else %}
+                            <li class='disabled page-item'><span class="page-link"> Next </span></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            {% else %}
+                <div class="text-center"><span>No Todos have been added</span></div>
+            {% endif %}
+            
+        </div>
+    </div>
+{% endblock %}

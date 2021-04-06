@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+        <div>
+            <div>
+                <div class='navbar'>
+                    <h2>TODOS</h2>
+                    <div >
+                        <a href="{% url 'todos:index' %}" class='col px-md-3 border-bottom nav-item'>MyTodo</a>
+                        <a href="{% url 'todos:addTodo' %}" class='col px-md-3 nav-item'>Add Todo</a>
+                        <a href="{% url 'todos:logout' %}" class='col px-md-3 nav-item'>Log Out</a>
+                </div>
+            </div>
+            <div class='text-center p-2'><h1>MyTodo</h1></div>
+            <form class='mx-auto border p-4' method='post' action='{% url 'todos:change' item.id %}' style='width:700px'>
+                {% csrf_token %}
+                <div class='form-group'>
+                    <label for='todo_name' >Todo Title</label>
+                    <input type='text' name='todo_name' value={{ item.name }} class='form-control' required>
+                </div>
+                <div class='form-group'> 
+                    <label for='todo_descr' >Todo Description</label>
+                    <input type='text' name='todo_descr' class='form-control' value={{ item.descr }}>
+                </div>
+                <div class='form-group'>
+                    <label for='todo_complete' >Todo Completed</label>
+                    <select name='todo_complete' class='form-control'><option>True</option><option>False</option></select>
+                </div>
+                <input type='submit' value='CHANGE' class='btn btn-primary '>
+            </form>
+        </div>
+{% endblock %}

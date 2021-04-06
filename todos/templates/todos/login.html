@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class='container border square rounded-sm p-3 m-5 mx-auto'>
+        <div class='text-center m-3'><h2>MyTodoApp</h2></div>
+        <form method='post' action='{% url 'todos:login' %}' class=''>
+            {% csrf_token %}
+            <div class='form-group'>
+                {{ form.username.label_tag }}
+                {{ form.username }}
+            </div>
+            <div class='form-group'>
+                {{ form.password.label_tag }}
+                {{ form.password }}
+            </div>
+            <input type="submit" value="login" class='btn btn-primary'>
+        </form>
+        <div>No account? <a href='{% url 'todos:addUser' %}'>Create one</a><div>
+    </div>
+{% endblock %}
